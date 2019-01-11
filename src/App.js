@@ -1,25 +1,52 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Note from './note/note'
+import NoteForm from './noteform/noteform'
+import './App.css'
 
 class App extends Component {
-  render() {
+    constructor(){
+        super()
+        this.state={
+            notes:[
+                {
+                    noteId:1,
+                    noteContent:'note 1'
+                },
+                {
+                    noteId:2,
+                    noteContent:'note 2'
+                }
+            ]
+        }
+    }
+   /* addNote=event=>{
+        console.log(event)
+    }*/
+
+    render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="notesContainer">
+        <div className='notesHeader'>
+            <h1>Hollaaa</h1>
+        </div>
+        <div className='notesBody'>
+            <ul>
+                {
+                    this.state.notes.map(note=>{
+                        return(
+                            <Note
+                                noteId={note.noteId}
+                                noteContent={note.noteContent}
+                                key={note.noteId}
+                            />
+                        )
+                    })
+                }
+            </ul>
+        </div>
+        <div className='notesFooter'>
+            <NoteForm/>
+        </div>
       </div>
     );
   }
