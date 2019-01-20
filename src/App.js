@@ -19,15 +19,15 @@ class App extends Component {
             ]
         }
     }
-   /* addNote=event=>{
-        console.log(event)
-    }*/
+    addNote=event=>{
+        event.preventDefault()
+    }
 
     render() {
     return (
       <div className="notesContainer">
         <div className='notesHeader'>
-            <h1>Hollaaa</h1>
+            <h1>Notes</h1>
         </div>
         <div className='notesBody'>
             <ul>
@@ -45,7 +45,9 @@ class App extends Component {
             </ul>
         </div>
         <div className='notesFooter'>
-            <NoteForm/>
+            <NoteForm
+                addNote={this.addNote}
+            />
         </div>
       </div>
     );
