@@ -13,7 +13,7 @@ body {
 
 .notesHeader, .notesBody, .notesFooter {
 	background-color: rgba(0, 0, 0, .5);
-	padding: 20px;
+	padding:20px;
 	margin: 0;
 }
 
@@ -22,7 +22,7 @@ body {
 }
 
 .notesBody {
-	margin-top: 20px;
+	margin-top:20px;
 }
 
 

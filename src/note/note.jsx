@@ -2,8 +2,9 @@ import React, {Component}from'react'
 import './note.css'
 export default class Note extends Component{
 
-    handleRemove(event){
-        console.log(event)
+    handleRemove(id){
+        this.props.handleRemove(id)
+        //console.log(event)
     }
 
     render(){

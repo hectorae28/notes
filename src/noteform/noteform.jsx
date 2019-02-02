@@ -6,7 +6,8 @@ export default class NoteForm extends Component{
         super(props)
     }*/
     addNote(){
-        alert(this.textInput.value)
+        this.props.addNote(this.textInput.value)
+        this.textInput.value=''
     }
     render(){
         return(

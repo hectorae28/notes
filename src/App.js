@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import firebase from 'firebase'
+import 'firebase/database'
+import config from './config/config.js'
 import Note from './note/note'
 import NoteForm from './noteform/noteform'
 import './App.css'
@@ -6,21 +9,53 @@ import './App.css'
 class App extends Component {
     constructor(){
         super()
+        this.app=firebase.initializeApp(config)
+        this.db=this.app.database().ref().child('notes')
         this.state={
             notes:[
-                {
+                /*{
                     noteId:1,
                     noteContent:'note 1'
                 },
                 {
                     noteId:2,
                     noteContent:'note 2'
-                }
+                }*/
             ]
         }
     }
-    addNote=event=>{
-        event.preventDefault()
+    componentDidMount(){
+        const {notes} = this.state
+        this.db.on('child_added',snap=>{
+            notes.push({
+                noteId:snap.key,
+                noteContent:snap.val().noteContent
+            })
+            this.setState({notes})
+        })
+        this.db.on('child_removed',snap=>{
+            for (var i = 0, len = notes.length; i < len; i++) {
+                if (notes[i].noteId===snap.key) {
+                    notes.splice(i,1)
+                }
+            }
+            this.setState({notes})
+        })
+        //this.setState({notes})
+    }
+    addNote = content =>{
+        this.db.push().set({noteContent:content})
+        /*let {notes}=this.state
+        notes.push({
+            noteId:notes.length+1,
+            noteContent:event
+        })
+        this.setState({
+            notes
+        })*/
+    }
+    handleRemove=id=>{
+        this.db.child(id).remove()
     }
 
     render() {
@@ -35,6 +70,7 @@ class App extends Component {
                     this.state.notes.map(note=>{
                         return(
                             <Note
+                                handleRemove={this.handleRemove}
                                 noteId={note.noteId}
                                 noteContent={note.noteContent}
                                 key={note.noteId}
