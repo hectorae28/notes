@@ -1,27 +1,35 @@
-import React,{Component} from 'react'
+import React from 'react'
 import './noteform.css'
 
-export default class NoteForm extends Component{
-    /*constructor(props){
-        super(props)
-    }*/
-    addNote(){
-        this.props.addNote(this.textInput.value)
-        this.textInput.value=''
-    }
-    render(){
-        return(
+const NoteForm=(props)=>{
+    let textInput=React.createRef()
+    return(
             <div className='NoteForm'>
+                <form
+                onSubmit={(event)=>{
+                        props.addNote(textInput.current.value)
+                        textInput.current.value=''
+                        textInput.current.focus()
+                        event.preventDefault()
+                    }}
+                >
                 <input
                     type='text'
                     placeholder='write a note'
-                    ref={input=>{this.textInput=input}}
-                    onSubmit={()=>this.addNote(this.textInput)}
+                    ref={textInput}
+                    //onSubmit={()=>props.addNote(textInput)}
                 />
                 <button
-                    onClick={()=>this.addNote(this.textInput)}
+                    /*onClick={()=>{
+                        props.addNote(textInput.current.value)
+                        textInput.current.value=''
+                        textInput.current.focus()
+                        textInput.current.preventDefault()
+                    }}*/
                 >Add Note</button>
+                </form>
             </div>
         )
-    }
 }
+
+export default NoteForm

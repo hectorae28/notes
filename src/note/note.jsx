@@ -13,6 +13,7 @@ export default class Note extends Component{
                 <span
                     onClick={()=>{this.handleRemove(this.props.noteId)}}
                 >&times;</span>
+                <br/>
                 <p>{this.props.noteContent}</p>
             </div>
         )

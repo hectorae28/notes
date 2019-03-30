@@ -34,7 +34,7 @@ class App extends Component {
             this.setState({notes})
         })
         this.db.on('child_removed',snap=>{
-            for (var i = 0, len = notes.length; i < len; i++) {
+            for (let i = 0; i < notes.length; i++) {
                 if (notes[i].noteId===snap.key) {
                     notes.splice(i,1)
                 }
@@ -44,6 +44,7 @@ class App extends Component {
         //this.setState({notes})
     }
     addNote = content =>{
+        //console.log(content)
         this.db.push().set({noteContent:content})
         /*let {notes}=this.state
         notes.push({
@@ -65,7 +66,6 @@ class App extends Component {
             <h1>Notes</h1>
         </div>
         <div className='notesBody'>
-            <ul>
                 {
                     this.state.notes.map(note=>{
                         return(
@@ -78,7 +78,6 @@ class App extends Component {
                         )
                     })
                 }
-            </ul>
         </div>
         <div className='notesFooter'>
             <NoteForm
